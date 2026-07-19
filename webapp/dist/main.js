@@ -1,7 +1,40 @@
 (() => {
     "use strict";    
     
-    window.registerPlugin('ir.elecserv', new class {
+
+const fa = {
+    "Search": "جستجو",
+    "Search channels": "جستجوی کانال‌ها",
+    "Create channel": "ایجاد کانال",
+    "New message": "پیام جدید",
+    "Reply": "پاسخ",
+    "Save": "ذخیره",
+    "Cancel": "انصراف",
+    "Settings": "تنظیمات",
+    "Members": "اعضا",
+    "Channels": "کانال‌ها",
+    "Threads": "رشته‌ها"
+};
+
+function translateText(root = document) {
+    const walker = document.createTreeWalker(
+        root,
+        NodeFilter.SHOW_TEXT,
+        null,
+        false
+    );
+
+    let node;
+    while ((node = walker.nextNode())) {
+        const text = node.nodeValue.trim();
+        if (fa[text]) {
+            node.nodeValue = node.nodeValue.replace(text, fa[text]);
+        }
+    }
+}
+    
+
+window.registerPlugin('ir.elecserv', new class {
         initialize(registry, store) {
 
             /* استایل به استایل برنامه اضافه میشود */
